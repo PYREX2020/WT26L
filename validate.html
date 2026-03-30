@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validate</title>
+</head>
+<body>
+    <h1>Romanian CNP Validator</h1>
+
+    <form id="cnp-form">
+        <label for="cnp">Enter CNP (13 digits):</label><br>
+        <input id="cnp" name="cnp" type="text" maxlength="13" placeholder="ex: 1980501123456" required>
+        <button type="submit">Validate</button>
+    </form>
+
+    <p id="result" aria-live="polite"></p>
+
+    <script>
+        function validateCNP(cnp) {
+            if (!/^\d{13}$/.test(cnp)) {
+                return false;
+            }
+
+            const key = "279146358279";
+            let sum = 0;
+            for (let i = 0; i < 12; i++) {
+                sum += parseInt(cnp[i], 10) * parseInt(key[i], 10);
+            }
+
+            let checkDigit = sum % 11;
+            if (checkDigit === 10) checkDigit = 1;
+
+            return checkDigit === parseInt(cnp[12], 10);
+        }
+
+        document.getElementById('cnp-form').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const cnp = document.getElementById('cnp').value.trim();
+            const resultEl = document.getElementById('result');
+
+            if (cnp.length !== 13 || !/^\d{13}$/.test(cnp)) {
+                resultEl.textContent = 'CNP must consist of exactly 13 numeric digits.';
+                resultEl.style.color = 'red';
+                return;
+            }
+
+            const valid = validateCNP(cnp);
+            if (valid) {
+                resultEl.textContent = 'CNP is valid ✅';
+                resultEl.style.color = 'green';
+            } else {
+                resultEl.textContent = 'CNP is invalid ❌';
+                resultEl.style.color = 'red';
+            }
+        });
+    </script>
+
+</body>
+</html>
