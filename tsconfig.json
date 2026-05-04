@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+      "esModuleInterop": true,
+      "strict": true,
+      "rootDir": "./scripts/ts",
+      "outDir": "./scripts/js"
+    },
+    "include": ["scripts/ts/**/*.ts"],
+    "exclude": ["scripts/ts/tests"]
+  }

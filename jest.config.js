@@ -1,0 +1,1 @@
+module.export={presset:'ts-jest',};

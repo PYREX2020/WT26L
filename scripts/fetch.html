@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .product-card{
+            
+            border: 1px solid blue;
+            padding:10px;
+            margin :10px;
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="products">Products</div>
+
+    <script>
+        let our_products = []
+        const gridProducts = document.getElementById("products");
+        
+        let cartProducts = JSON.parse(localStorage.getItem('cart-products' || "[]")) || [];
+        
+        fetch('https://dummyjson.com/products').then((data) => data.json()).then((data) => insertProducts(data.products))
+
+        function insertProducts(products) {
+            products.forEach((product) => {
+                console.log({product})
+                const productEl = document.createElement('div')
+                productEl.className = 'product-card'
+                const productTemplate = `<h3>${product.title} - ${product.price}</h3>
+                <div>${product.description}</div>
+                <button>Add to cart</button>`  
+                productEl.innerHTML = productTemplate;
+                const btn = productEl.querySelector('button')
+                btn.addEventListener("click", () => {
+                    const key = `product-${product.id}`
+                    cartProducts.push(product.id)
+                    localStorage.setItem("cart-products", JSON.stringify(cartProducts))
+                })
+                gridProducts.appendChild(productEl);
+                
+            });
+        }
+        insertProducts()
+    </script>
+</body>
+</html>
