@@ -2,6 +2,9 @@
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
 import Card from '@/components/Card.vue'
+import Watchlist from '@/pages/Watchlist.vue'
+import Watched from '@/pages/Watched.vue'
+import AddMovie from '@/pages/AddMovie.vue'
 </script>
 
 <template>
@@ -10,19 +13,25 @@ import Card from '@/components/Card.vue'
 
     <div class="wrapper">
       <HelloWorld msg="You did it!" />
-      <Card />
+      
 
-      <nav>
+      
         <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
+        <RouterLink to="/watchlist">Watchlist</RouterLink>
+        <RouterLink to="/watched">Watched</RouterLink>
+        <RouterLink to="/addmovie">Add Movie</RouterLink>
+      
+    </div>
+  </header>
+
 
 <Card  name = "Card 1  "/>
 <Card  name = "Card 2  "/>
 
 
-      </nav>
-    </div>
-  </header>
+    
+  
+ 
 
   <RouterView />
 </template>
